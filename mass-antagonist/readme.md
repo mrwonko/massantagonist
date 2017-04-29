@@ -1,1 +1,0 @@
-pacman implementation in Haskell
