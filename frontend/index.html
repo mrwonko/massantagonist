@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Mass-Antagonist</title>
+
+		<script>
+			function onLoad() {
+				// select random opponent because most players won't initially bother to change it
+				var opponent = document.getElementById("opponent");
+				var item = Math.random() * 4;
+				if( item < 1 ) {
+					opponent.value = "blinky";
+				} else if( item < 2 ) {
+					opponent.value = "pinky";
+				} else if( item < 3 ) {
+					opponent.value = "inky";
+				} else if( item < 4 ) {
+					opponent.value = "clyde";
+				}
+			}
+			function move(direction) {
+				var opponent = document.getElementById("opponent").value;
+				var request =  new XMLHttpRequest();
+				request.open("POST", "move", true)
+				request.setRequestHeader("Content-Type", "application/json");
+				request.send(JSON.stringify({
+					"opponent": opponent,
+					"direction": direction
+				}))
+			}
+		</script>
+	</head>
+
+	<body onload="onLoad()">
+		<h1>You are the antagonist!</h1>
+		<form>
+			<p>
+				<select id="opponent">
+					<option value="blinky">Blinky</option>
+					<option value="pinky">Pinky</option>
+					<option value="inky">Inky</option>
+					<option value="clyde">Clyde</option>
+				</select>
+			</p>
+			<table>
+				<tr><td></td><td><input type="button" onclick="move('up')" value="&uarr;"/></td><td></td></tr>
+				<tr><td><input type="button" onclick="move('left')" value="&larr;"/></td><td></td><td><input type="button" onclick="move('right')" value="&rarr;"/></td></tr>
+				<tr><td></td><td><input type="button" onclick="move('down')" value="&darr;"/></td><td></td></tr>
+			</table>
+		</form>
+		<p>&copy; 2017 Willi Schinmeyer. Made for April's Berlin Mini Jam. Source code available on <a href="http://github.com/mrwonko/massantagonist">Github</a></p>
+	</body>
+</html>
