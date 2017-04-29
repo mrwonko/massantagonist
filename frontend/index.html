@@ -23,7 +23,7 @@
 			function move(direction) {
 				var opponent = document.getElementById("opponent").value;
 				var request =  new XMLHttpRequest();
-				request.open("POST", "http://localhost:8371/berlin/move", true)
+				request.open("POST", "http://mrwonko.de/berlin/move", true)
 				request.setRequestHeader("Content-Type", "application/json");
 				request.send(JSON.stringify({
 					"opponent": opponent,

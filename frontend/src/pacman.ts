@@ -9,7 +9,7 @@ function onLoad() {
 
 	const impassable = {
 		'#': true,
-		'-': true,
+		//'-': true, // TODO: only impassable to player
 	}
 
 	const levelString = `
@@ -344,7 +344,7 @@ TODO# .   # #P#  #   . #TODO
 		}
 	}
 
-	const ws = new WebSocket("ws://localhost:8371/berlin/ws")
+	const ws = new WebSocket("ws://mrwonko.de:8371/berlin/ws")
 	ws.addEventListener("message", function(event) {
 		console.log("ws message: " + event.data)
 		try {
