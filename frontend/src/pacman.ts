@@ -10,7 +10,6 @@ function onLoad() {
 	const impassable = {
 		'#': true,
 		'-': true,
-		'-': true,
 	}
 
 	const levelString = `
@@ -26,10 +25,10 @@ function onLoad() {
 ######.##### ## #####.######
      #.##### ## #####.#     
      #.##    B     ##.#     
-     #.## ###--### ##.#     
-######.## #I P C # ##.######
-TODO# .   #  R   #   . #TODO
-######.## #      # ##.######
+     #.## ###-#### ##.#     
+######.## # #I#  # ##.######
+TODO# .   # #P#  #   . #TODO
+######.## # #C#  # ##.######
      #.## ######## ##.#     
      #.##          ##.#     
      #.## ######## ##.#     
@@ -344,6 +343,19 @@ TODO# .   #  R   #   . #TODO
 			game.playerMove("down")
 		}
 	}
+
+	const ws = new WebSocket("ws://localhost:8371/berlin/ws")
+	ws.addEventListener("message", function(event) {
+		console.log("ws message: " + event.data)
+		try {
+			const message = JSON.parse(event.data)
+			if(typeof message == "object") {
+				game.ghostMove(message["opponent"], message["direction"])
+			}
+		} catch(e) {
+			console.log(e)
+		}
+	})
 
 	let lastTime = performance.now()
 	function render(timestamp: number) {
